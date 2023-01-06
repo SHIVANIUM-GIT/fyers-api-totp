@@ -1,6 +1,6 @@
 # fyers_api_totp
 
-# SaralGyaan - Automatically Generate Access Token for your FYERS API
+# Shiv Rathore - Automatically Generate Access Token for your FYERS API
 
 A Python Script to automatically generate Access Token for your [FYERS API](https://fyers.in?id=XS12141)
 
