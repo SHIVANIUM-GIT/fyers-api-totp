@@ -21,14 +21,16 @@ session = accessToken.SessionModel(
     grant_type="authorization_code",
 )
 
-response = session.generate_authcode()
+# response = session.generate_authcode()
 # print(response)
 
-# session.set_token(auth_code)
-# response = session.generate_token()
+auth_code = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhcGkubG9naW4uZnllcnMuaW4iLCJpYXQiOjE2NzM1NDYwNzEsImV4cCI6MTY3MzU3NjA3MSwibmJmIjoxNjczNTQ1NDcxLCJhdWQiOiJbXCJ4OjBcIiwgXCJ4OjFcIiwgXCJ4OjJcIiwgXCJkOjFcIiwgXCJkOjJcIiwgXCJ4OjFcIiwgXCJ4OjBcIl0iLCJzdWIiOiJhdXRoX2NvZGUiLCJkaXNwbGF5X25hbWUiOiJYUzEyMTQxIiwib21zIjpudWxsLCJub25jZSI6IiIsImFwcF9pZCI6IkJHR1NNRjJZUUoiLCJ1dWlkIjoiMGVkZWEzYTMyYjYzNDI1Yjk3YmEwN2ExM2UxYTg3ZjkiLCJpcEFkZHIiOiIwLjAuMC4wIiwic2NvcGUiOiIifQ.y6THZZn2lWRaoz90n8BX5XgBrSpE4B1FJnB_iNOAO4Q"
+session.set_token(auth_code)
+response = session.generate_token()
 
-# access_token = response["access_token"]
-# print(access_token)
-access_token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhcGkuZnllcnMuaW4iLCJpYXQiOjE2NzMyOTIzNTUsImV4cCI6MTY3MzMxMDY1NSwibmJmIjoxNjczMjkyMzU1LCJhdWQiOlsieDowIiwieDoxIiwieDoyIiwiZDoxIiwiZDoyIiwieDoxIiwieDowIl0sInN1YiI6ImFjY2Vzc190b2tlbiIsImF0X2hhc2giOiJnQUFBQUFCanZHcER1U0U5U09JM0syelE1eG1QYmZjZEdzQWNkekxlSVpzZjNObHpnNFprZm1aZmdRY0lzSmhHZFlaSVN3eUU5aW8tZ0R1WnJGY0Z3NlVHUHJKN3lNQ1hCd1ZNdUdWNnBCYkVlYUc2bEtzOFVWZz0iLCJkaXNwbGF5X25hbWUiOiJTSElWIEtVTUFSIFJBVEhPUkUiLCJvbXMiOm51bGwsImZ5X2lkIjoiWFMxMjE0MSIsImFwcFR5cGUiOjEwMCwicG9hX2ZsYWciOiJOIn0.cumZ0FrVLfDPJmNsxblBJyhD_aoWC8N7YqEyFtSPTBs
-fyers = fyersModel.FyersModel(client_id=client_id, token=access_token)
+access_token = response["access_token"]
+print("ACCESS TOKEN : ", access_token)
+
+# Check your holdings
+fyers = fyersModel.FyersModel(client_id=client_id, token=os.getenv("ACCESS_TOKEN"))
 print(fyers.holdings())
