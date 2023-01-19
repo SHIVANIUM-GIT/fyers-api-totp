@@ -8,21 +8,27 @@ from urllib.parse import parse_qs, urlparse
 import sys
 from fyers_api import fyersModel
 from fyers_api import accessToken
+from dotenv import load_dotenv
+load_dotenv()
 
 
-APP_ID = "acbcslana "  # App ID from myapi dashboard is in the form appId-appType. Example - EGNI8CE27Q-100, In this code EGNI8CE27Q will be APP_ID and 100 will be the APP_TYPE
-APP_TYPE = "100"
-SECRET_KEY = 'akfhahfkahfah'  # add SECRET_KEY
+# App ID from myapi dashboard is in the form appId-appType. Example - EGNI8CE27Q-100, In this code EGNI8CE27Q will be APP_ID and 100 will be the APP_TYPE
+APP_ID = os.getenv("client_id")
+APP_TYPE = os.getenv("APP_TYPE")
+SECRET_KEY = os.getenv("secret_key")
 client_id = f'{APP_ID}-{APP_TYPE}'
 
-FY_ID = "sdhs32"  # Your fyers ID
+
+FY_ID = os.getenv('fyers_id')  # Your fyers ID
 APP_ID_TYPE = "2"  # Keep default as 2, It denotes web login
 # TOTP secret is generated when we enable 2Factor TOTP from myaccount portal
-TOTP_KEY = "gafg23ksskhfh2rkhkhfs"
-PIN = "5555"  # User pin for fyers account
+TOTP_KEY = os.getenv('TOTP_KEY')
+PIN = os.getenv('pin')  # User pin for fyers account
 
-REDIRECT_URI = "https://127.0.0.1/"  # Redirect url from the app.
+REDIRECT_URI = os.getenv('redirect_uri')  # Redirect url from the app.
 
+
+# API endpoints
 BASE_URL = "https://api-t2.fyers.in/vagator/v2"
 BASE_URL_2 = "https://api.fyers.in/api/v2"
 URL_SEND_LOGIN_OTP = BASE_URL + "/send_login_otp"  # /send_login_otp_v2
@@ -37,7 +43,7 @@ ERROR = -1
 def send_login_otp(fy_id, app_id):
     try:
         result_string = requests.post(url=URL_SEND_LOGIN_OTP, json={
-                                      "fy_id": fy_id, "app_id": app_id})
+            "fy_id": fy_id, "app_id": app_id})
         if result_string.status_code != 200:
             return [ERROR, result_string.text]
         result = json.loads(result_string.text)
@@ -50,7 +56,7 @@ def send_login_otp(fy_id, app_id):
 def verify_totp(request_key, totp):
     try:
         result_string = requests.post(url=URL_VERIFY_TOTP, json={
-                                      "request_key": request_key, "otp": totp})
+            "request_key": request_key, "otp": totp})
         if result_string.status_code != 200:
             return [ERROR, result_string.text]
         result = json.loads(result_string.text)
@@ -68,7 +74,6 @@ print(f'URL to activate APP:  {urlToActivate}')
 
 
 # Step 1 - Retrieve request_key from send_login_otp API
-
 send_otp_result = send_login_otp(fy_id=FY_ID, app_id=APP_ID_TYPE)
 
 if send_otp_result[0] != SUCCESS:
