@@ -23,10 +23,10 @@ A Python Script to automatically generate Access Token for your [FYERS API](http
 
 ## .env will look like this formate
 
--client_id=""
--APP_TYPE = ""
--secret_key=""
--redirect_uri=""
--TOTP_KEY=""
--pin=""
--fyers_id=""
+1. client_id=""
+2. APP_TYPE = ""
+3. secret_key=""
+4. redirect_uri=""
+5. TOTP_KEY=""
+6. pin=""
+7. fyers_id=""
